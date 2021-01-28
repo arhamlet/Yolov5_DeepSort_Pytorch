@@ -42,7 +42,7 @@ def compute_color_for_labels(label):
     return tuple(color)
 
 
-def draw_boxes(img, bbox, identities=None, offset=(0, 0)):
+def draw_boxes(img, bbox,cls, conf, identities=None, offset=(0, 0)):
     for i, box in enumerate(bbox):
         x1, y1, x2, y2 = [int(i) for i in box]
         x1 += offset[0]
@@ -52,7 +52,8 @@ def draw_boxes(img, bbox, identities=None, offset=(0, 0)):
         # box text and bar
         id = int(identities[i]) if identities is not None else 0
         color = compute_color_for_labels(id)
-        label = '{}{:d}'.format("", id)
+        # label = '{}{:d}'.format("", id)
+        label = f'{cls}{id}   confidence= {conf:.2f}'
         t_size = cv2.getTextSize(label, cv2.FONT_HERSHEY_PLAIN, 2, 2)[0]
         cv2.rectangle(img, (x1, y1), (x2, y2), color, 3)
         cv2.rectangle(
@@ -159,6 +160,8 @@ def detect(opt, save_img=False):
                     obj = [x_c, y_c, bbox_w, bbox_h]
                     bbox_xywh.append(obj)
                     confs.append([conf.item()])
+                    cls = names[int(cls)]
+                    conf = conf.item()
 
                 xywhs = torch.Tensor(bbox_xywh)
                 confss = torch.Tensor(confs)
@@ -170,7 +173,7 @@ def detect(opt, save_img=False):
                 if len(outputs) > 0:
                     bbox_xyxy = outputs[:, :4]
                     identities = outputs[:, -1]
-                    draw_boxes(im0, bbox_xyxy, identities)
+                    draw_boxes(im0, bbox_xyxy, cls, conf, identities)
 
                 # Write MOT compliant results to file
                 if save_txt and len(outputs) != 0:
