@@ -60,7 +60,12 @@ MOT compliant results can be saved to `inference/output` by
 python3 track.py --source ... --save-txt
 ```
 
-## Other information
+## Using the model for Custom Data
+The Yolov5_DeepSORT model was run on traffic tracking as well as person tracking in two separate instances. The demo video links are mentioned below:
 
-For more detailed information about the algorithms and their corresponding lisences used in this project access their official github implementations.
+### Traffic Tracking
+
+`https://youtu.be/G6l4rhRUhyY`
+
+`https://youtu.be/6OSnZpOd_Q8`
 
