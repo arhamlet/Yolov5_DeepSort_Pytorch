@@ -1,9 +1,6 @@
 # Yolov5 + Deep Sort with PyTorch
 
-[![HitCount](http://hits.dwyl.com/{mikel-brostrom}/{Yolov5_DeepSort_Pytorch}.svg)](http://hits.dwyl.com/{mikel-brostrom}/{Yolov5_DeepSort_Pytorch})
-
-
-![](Town.gif)
+![](giphy.gif)
 
 ## Introduction
 
